@@ -11,7 +11,7 @@ echo " --------- Get caller identity"
 aws sts get-caller-identity
 
 echo " --------- Assume role"
-aws sts assume-role --role-arn "arn:aws:iam::725653950044:role/riva-dev-module-test-sqsh" --role-session-name OpenCloudCXEKSSession --query "Credentials" > account.json
+aws sts assume-role --role-arn "arn:aws:iam::725653950044:role/riva-dev-module-test-sqsh" --role-session-name OpenCloudCXEKSSession --query "Credentials" > assume-credentials.json
 cat assume-credentials.json
 
 _accessKeyId=$(cat assume-credentials.json |jq -r .AccessKeyId);
