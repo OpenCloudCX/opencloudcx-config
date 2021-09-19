@@ -9,6 +9,8 @@ echo "EKS_NAME --> $EKS_NAME"
 
 aws eks --region us-east-1 update-kubeconfig --name "$EKS_NAME"
 
+cat /root/.kube/config
+
 kubectl get pods -A
 
 ##### kubectl hal commands
