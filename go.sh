@@ -11,7 +11,7 @@ echo " --------- Get caller identity"
 aws sts get-caller-identity
 
 echo " --------- Assume role"
-aws sts assume-role --role-arn "arn:aws:iam::725653950044:role/riva-dev-module-test-sqsh" --role-session-name OpenCloudCXEKSSession --query "Credentials" > assume-credentials.json
+aws sts assume-role --role-arn "arn:aws:iam::725653950044:role/EksCodeBuildKubectlRole" --role-session-name OpenCloudCXEKSSession --query "Credentials" > assume-credentials.json
 cat assume-credentials.json
 
 _accessKeyId=$(cat assume-credentials.json |jq -r .AccessKeyId);
@@ -22,13 +22,15 @@ echo " --------- Set varibales"
 
 export AWS_ACCESS_KEY_ID=$_accessKeyId
 export AWS_SECRET_ACCESS_KEY=$_secretAccessKey
-export AWS_DEFAULT_REGION=us-east-1
+export AWS_SESSION_TOKEN=$_sessionToken
+export AWS_DEFAULT_REGION="us-east-1"
 
 echo " --------- SECRETS"
 
-echo "Access key --> [$_accessKeyId :: $AWS_ACCESS_KEY_ID]"
-echo "Secret key --> [$_secretAccessKey :: $AWS_SECRET_ACCESS_KEY]"
-echo "Region     --> [$AWS_DEFAULT_REGION]"
+echo "Access key    --> [$_accessKeyId :: $AWS_ACCESS_KEY_ID]"
+echo "Secret key    --> [$_secretAccessKey :: $AWS_SECRET_ACCESS_KEY]"
+echo "Session Token --> [$_sessionToken :: $AWS_SESSION_TOKEN]"
+echo "Region        --> [$AWS_DEFAULT_REGION]"
 
 echo " --------- Update kubeconfig"
 aws eks update-kubeconfig --name "$EKS_NAME"
