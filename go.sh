@@ -8,10 +8,10 @@ terraform apply -var "jenkins_url=http://$INGRESS_ENDPOINT" --var "github_userna
 echo "EKS_NAME --> $EKS_NAME"
 
 echo " --------- Get caller identity"
-# aws sts get-caller-identity
+aws sts get-caller-identity
 
 echo " --------- Assume role"
-# aws sts assume-role --role-arn "arn:aws:iam::725653950044:role/riva-dev-module-test-sqsh-eks" --role-session-name OpenCloudCXEKSSession
+aws sts assume-role --role-arn "arn:aws:iam::725653950044:role/riva-dev-module-test-sqsh-eks" --role-session-name OpenCloudCXEKSSession
 
 echo " --------- Get caller identity - 2"
 aws sts get-caller-identity
