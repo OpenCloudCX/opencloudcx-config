@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ##### Add jenkins jobx
+terraform init
 terraform apply -var "jenkins_url=$INGRESS_ENDPOINT " --auto-approve 
 
 ##### kubectl file setup with commands
