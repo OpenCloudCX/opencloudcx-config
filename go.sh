@@ -9,5 +9,7 @@ echo "EKS_NAME --> $EKS_NAME"
 
 aws eks --region us-east-1 update-kubeconfig --name "$EKS_NAME"
 
+kubectl get pods -A
+
 ##### kubectl hal commands
 # k exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal config ci jenkins enable"
