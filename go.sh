@@ -18,20 +18,25 @@ _accessKeyId=$(cat assume-credentials.json |jq -r .AccessKeyId);
 _secretAccessKey=$(cat assume-credentials.json |jq -r .SecretAccessKey);
 _sessionToken=$(cat assume-credentials.json |jq -r .SessionToken)
 
+echo " --------- Set varibales"
+
 export AWS_ACCESS_KEY_ID=$_accessKeyId
 export AWS_SECRET_ACCESS_KEY=$_secretAccessKey
 export AWS_DEFAULT_REGION=us-east-1
 
-echo " --------- Get caller identity - 2"
-aws sts get-caller-identity
+echo " --------- SECRETS"
+
+echo "Access key --> [$_accessKeyId :: $AWS_ACCESS_KEY_ID]"
+echo "Secret key --> [$_secretAccessKey :: $AWS_SECRET_ACCESS_KEY]"
+echo "Region     --> [$AWS_DEFAULT_REGION]"
 
 echo " --------- Update kubeconfig"
-aws eks --region us-east-1 update-kubeconfig --name "$EKS_NAME"
+aws eks update-kubeconfig --name "$EKS_NAME"
 
-echo " --------- Show config"
+# echo " --------- Show config"
 # cat /root/.kube/config
 
-
+echo " --------- TEST COMMAND"
 
 kubectl get pods -A
 
