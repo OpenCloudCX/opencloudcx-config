@@ -11,8 +11,8 @@ aws eks --region us-east-1 update-kubeconfig --name "$EKS_NAME"
 
 cat /root/.kube/config
 
-echo "whoami --> $(whoami)"
-whoami
+echo "whoami"
+aws sts get-caller-identity
 
 kubectl get pods -A
 
