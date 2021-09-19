@@ -12,11 +12,11 @@ aws sts get-caller-identity
 
 echo " --------- Assume role"
 aws sts assume-role --role-arn "arn:aws:iam::725653950044:role/riva-dev-module-test-sqsh" --role-session-name OpenCloudCXEKSSession --query "Credentials" > account.json
-cat account.json
+cat assume-credentials.json
 
-_accessKeyId=$(cat $accountLine.json |jq -r .AccessKeyId);
-_secretAccessKey=$(cat $accountLine.json |jq -r .SecretAccessKey);
-_sessionToken=$(cat $accountLine.json |jq -r .SessionToken)
+_accessKeyId=$(cat assume-credentials.json |jq -r .AccessKeyId);
+_secretAccessKey=$(cat assume-credentials.json |jq -r .SecretAccessKey);
+_sessionToken=$(cat assume-credentials.json |jq -r .SessionToken)
 
 export AWS_ACCESS_KEY_ID=$_accessKeyId
 export AWS_SECRET_ACCESS_KEY=$_secretAccessKey
@@ -26,7 +26,7 @@ echo " --------- Get caller identity - 2"
 aws sts get-caller-identity
 
 echo " --------- Update kubeconfig"
-aws eks --region us-east-1 update-kubeconfig --name "$EKS_NAME" --
+aws eks --region us-east-1 update-kubeconfig --name "$EKS_NAME"
 
 echo " --------- Show config"
 # cat /root/.kube/config
