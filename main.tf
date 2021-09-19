@@ -40,7 +40,7 @@ resource "jenkins_job" "kubectl_test_pipeline" {
 }
 
 resource "jenkins_credential_username" "jenkins_github_secret" {
-  name     = "ajnriva-github"
+  name     = "ajnriva-github2"
   username = var.github_username
   password = var.github_secret
 }
