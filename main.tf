@@ -30,17 +30,17 @@ locals {
 }
 
 resource "jenkins_job" "kubectl_test_freestyle" {
-  name     = "tf-kubectl-test2"
+  name     = "tf-kubectl-test"
   template = local.jenkins_freestyle_kubectl_job
 }
 
 resource "jenkins_job" "kubectl_test_pipeline" {
-  name     = "tf-kubectl-pipeline-test2"
+  name     = "tf-kubectl-pipeline-test"
   template = local.jenkins_pipeline_kubectl_job
 }
 
 resource "jenkins_credential_username" "jenkins_github_secret" {
-  name     = "ajnriva-github2"
+  name     = "ajnriva-github"
   username = var.github_username
   password = var.github_secret
 }
