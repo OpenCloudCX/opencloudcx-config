@@ -7,12 +7,22 @@ terraform apply -var "jenkins_url=http://$INGRESS_ENDPOINT" --var "github_userna
 ##### kubectl file setup with commands
 echo "EKS_NAME --> $EKS_NAME"
 
+echo " --------- Get caller identity"
+aws sts get-caller-identity
+
+echo " --------- Assume role"
+aws sts assume-role --role-arn "arn:aws:iam::725653950044:role/riva-dev-module-test-sqsh-eks" --role-session-name OpenCloudCXEKSSession
+
+echo " --------- Get caller identity - 2"
+aws sts get-caller-identity
+
+echo " --------- Update kubeconfig"
 aws eks --region us-east-1 update-kubeconfig --name "$EKS_NAME"
 
+echo " --------- Show config"
 cat /root/.kube/config
 
-echo "whoami"
-aws sts get-caller-identity
+
 
 kubectl get pods -A
 
