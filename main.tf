@@ -30,12 +30,12 @@ locals {
 }
 
 resource "jenkins_job" "kubectl_test_freestyle" {
-  name     = "tf-kubectl-test"
+  name     = "tf-kubectl-test2"
   template = local.jenkins_freestyle_kubectl_job
 }
 
 resource "jenkins_job" "kubectl_test_pipeline" {
-  name     = "tf-kubectl-pipeline-test"
+  name     = "tf-kubectl-pipeline-test2"
   template = local.jenkins_pipeline_kubectl_job
 }
 
