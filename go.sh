@@ -20,7 +20,7 @@ echo " --------- Update kubeconfig"
 aws eks --region us-east-1 update-kubeconfig --name "$EKS_NAME"
 
 echo " --------- Show config"
-cat /root/.kube/config
+# cat /root/.kube/config
 
 
 
