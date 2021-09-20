@@ -11,7 +11,7 @@ echo " --------- Get caller identity"
 aws sts get-caller-identity
 
 echo " --------- Assume role"
-aws sts assume-role --role-arn "arn:aws:iam::725653950044:role/EksCodeBuildKubectlRole" --role-session-name OpenCloudCXEKSSession --query "Credentials" > assume-credentials.json
+aws sts assume-role --role-arn "arn:aws:iam::725653950044:role/wswi-ocxbootstrap-codebuild-kubectl-role" --role-session-name OpenCloudCXEKSSession --query "Credentials" > assume-credentials.json
 cat assume-credentials.json
 
 _accessKeyId=$(cat assume-credentials.json |jq -r .AccessKeyId);
@@ -44,5 +44,5 @@ kubectl get pods -A
 
 ##### kubectl hal commands
 # kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal config ci jenkins enable"
-# kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal config ci jenkins master add k8s-jenkins --address $INGRESS_ENDPOINT --username admin --password $JENKINS_ADMIN_TOKEN"
+# kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal config ci jenkins master add k8s-jenkins --address http://$INGRESS_ENDPOINT --username admin --password $JENKINS_SECRET"
 # kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal deploy apply"
