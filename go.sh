@@ -11,14 +11,14 @@ echo " --------- Get caller identity"
 aws sts get-caller-identity
 
 echo " --------- Assume role"
-aws sts assume-role --role-arn "arn:aws:iam::725653950044:role/wswi-ocxbootstrap-codebuild-kubectl-role" --role-session-name OpenCloudCXEKSSession --query "Credentials" > assume-credentials.json
+aws sts assume-role --role-arn "arn:aws:iam::725653950044:role/${RANDOM_SEED}-ocxbootstrap-codebuild-kubectl-role" --role-session-name OpenCloudCXEKSSession --query "Credentials" > assume-credentials.json
 cat assume-credentials.json
 
 _accessKeyId=$(cat assume-credentials.json |jq -r .AccessKeyId);
 _secretAccessKey=$(cat assume-credentials.json |jq -r .SecretAccessKey);
 _sessionToken=$(cat assume-credentials.json |jq -r .SessionToken)
 
-echo " --------- Set varibales"
+echo " --------- Set variables"
 
 export AWS_ACCESS_KEY_ID=$_accessKeyId
 export AWS_SECRET_ACCESS_KEY=$_secretAccessKey
@@ -43,6 +43,9 @@ echo " --------- TEST COMMAND"
 kubectl get pods -A
 
 ##### kubectl hal commands
-# kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal config ci jenkins enable"
-# kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal config ci jenkins master add k8s-jenkins --address http://$INGRESS_ENDPOINT --username admin --password $JENKINS_SECRET"
-# kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal deploy apply"
+echo " --------- Spinnaker hal commands"
+
+kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal config ci jenkins enable"
+kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal config ci jenkins master add k8s-jenkins --address http://$INGRESS_ENDPOINT --username admin --password $JENKINS_SECRET"
+kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal deploy apply"
+kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal config"
