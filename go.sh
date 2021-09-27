@@ -9,9 +9,10 @@ echo "EKS_NAME --> $EKS_NAME"
 
 echo " --------- Get caller identity"
 aws sts get-caller-identity
+_awsAccountId=$(aws sts get-caller-identity --query Account --output text)
 
 echo " --------- Assume role"
-aws sts assume-role --role-arn "arn:aws:iam::943074316723:role/${RANDOM_SEED}-ocxbootstrap-codebuild-kubectl-role" --role-session-name OpenCloudCXEKSSession --query "Credentials" > assume-credentials.json
+aws sts assume-role --role-arn "arn:aws:iam::$_awsAccountId:role/${RANDOM_SEED}-ocxbootstrap-codebuild-kubectl-role" --role-session-name OpenCloudCXEKSSession --query "Credentials" > assume-credentials.json
 cat assume-credentials.json
 
 _accessKeyId=$(cat assume-credentials.json |jq -r .AccessKeyId);
