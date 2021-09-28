@@ -31,6 +31,9 @@
                 chmod +x ./kubectl
                 ./kubectl apply -f pod.yaml
                 ./kubectl wait --for=condition=Ready pod/opencloudcx-app --namespace jenkins --timeout=300s
+                sleep 30
+                ./kubectl delete pods --namespace jenkins opencloudcx-app
+
                 &apos;&apos;&apos;
             }
         }
