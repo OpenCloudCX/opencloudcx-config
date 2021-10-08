@@ -27,7 +27,7 @@
                 sh &apos;&apos;&apos;
                 #!/bin/bash
 
-                curl -LO &quot;https://dl.k8s.io/release/v1.22.1/bin/linux/amd64/kubectl&quot;
+                curl -LO &quot;https://dl.k8s.io/release/v${kubectl_version}/bin/linux/amd64/kubectl&quot;
                 chmod +x ./kubectl
                 ./kubectl apply -f pod.yaml
                 ./kubectl wait --for=condition=Ready pod/opencloudcx-tracer-round --namespace jenkins 
