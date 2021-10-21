@@ -47,6 +47,6 @@ kubectl get pods -A
 echo " --------- Spinnaker hal commands"
 
 kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal config ci jenkins enable"
-kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal config ci jenkins master add k8s-jenkins --address http://$INGRESS_ENDPOINT --username admin --password $JENKINS_API_TOKEN"
+kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal config ci jenkins master add k8s-jenkins --address http://$INGRESS_ENDPOINT --username admin --password $JENKINS_API_TOKEN --no-validate"
 kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal deploy apply"
 kubectl exec -it -n spinnaker spinnaker-spinnaker-halyard-0 -- bash -c "hal config"
