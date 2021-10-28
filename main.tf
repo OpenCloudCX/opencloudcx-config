@@ -32,28 +32,16 @@ locals {
 resource "jenkins_job" "kubectl_test_freestyle" {
   name     = "tf-kubectl-test"
   template = local.jenkins_freestyle_kubectl_job
-
-  depends_on [
-    module.opencloudcx.ingress_hostname
-  ]
 }
 
 resource "jenkins_job" "kubectl_test_pipeline" {
   name     = "tf-kubectl-pipeline-test"
   template = local.jenkins_pipeline_kubectl_job
-
-  depends_on [
-    module.opencloudcx.ingress_hostname
-  ]
 }
 
 resource "jenkins_credential_username" "jenkins_github_secret" {
   name     = "ajnriva-github"
   username = var.github_username
   password = var.github_secret
-
-  depends_on [
-    module.opencloudcx.ingress_hostname
-  ]
 }
 
